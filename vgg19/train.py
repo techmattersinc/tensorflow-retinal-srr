@@ -12,18 +12,21 @@ learning_rate = 1e-3
 batch_size = 128
 
 def train():
-    x = tf.placeholder(tf.float32, [None, 96, 96, 3])
-    t = tf.placeholder(tf.int32, [None])
-    is_training = tf.placeholder(tf.bool, [])
-
+#    x = tf.placeholder(tf.float32, [None, 96, 96, 3])
+#    t = tf.placeholder(tf.int32, [None])
+#    is_training = tf.placeholder(tf.bool, [])
+    x = [None, 96, 96, 3]
+    t = [None]
+    is_training = False
     model = VGG19(x, t, is_training)
-    sess = tf.Session()
-    with tf.variable_scope('vgg19'):
-        global_step = tf.Variable(0, name='global_step', trainable=False)
+#    sess = tf.Session()
+    #with tf.variable_scope('vgg19'):
+    #    global_step = tf.Variable(0, name='global_step', trainable=False)
+    global_step = 0
     opt = tf.train.AdamOptimizer(learning_rate=learning_rate)
     train_op = opt.minimize(model.loss, global_step=global_step)
-    init = tf.global_variables_initializer()
-    sess.run(init)
+    #init = tf.global_variables_initializer()
+    #sess.run(init)
 
     # Restore the latest model
     if tf.train.get_checkpoint_state('backup/'):

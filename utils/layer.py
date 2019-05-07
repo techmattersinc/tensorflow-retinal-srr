@@ -6,7 +6,7 @@ def lrelu(x, trainbable=None):
 
 
 def prelu(x, trainable=True):
-    alpha = tf.get_variable(
+    alpha = tf.compat.v1.get_variable(
         name='alpha', 
         shape=x.get_shape()[-1],
         dtype=tf.float32,
@@ -16,13 +16,13 @@ def prelu(x, trainable=True):
 
 
 def conv_layer(x, filter_shape, stride, trainable=True):
-    filter_ = tf.get_variable(
+    filter_ = tf.compat.v1.get_variable(
         name='weight', 
         shape=filter_shape,
         dtype=tf.float32, 
-        initializer=tf.contrib.layers.xavier_initializer(),
+        initializer=tf.compat.v1.keras.initializers.glorot_uniform(),
         trainable=trainable)
-    return tf.nn.conv2d(
+    return tf.compat.v1.nn.conv2d(
         input=x,
         filter=filter_,
         strides=[1, stride, stride, 1],
@@ -30,13 +30,13 @@ def conv_layer(x, filter_shape, stride, trainable=True):
 
 
 def deconv_layer(x, filter_shape, output_shape, stride, trainable=True):
-    filter_ = tf.get_variable(
+    filter_ = tf.compat.v1.get_variable(
         name='weight',
         shape=filter_shape,
         dtype=tf.float32,
-        initializer=tf.contrib.layers.xavier_initializer(),
+        initializer=tf.compat.v1.keras.initializers.glorot_uniform(),
         trainable=trainable)
-    return tf.nn.conv2d_transpose(
+    return tf.compat.v1.nn.conv2d_transpose(
         value=x,
         filter=filter_,
         output_shape=output_shape,
@@ -44,7 +44,7 @@ def deconv_layer(x, filter_shape, output_shape, stride, trainable=True):
 
 
 def max_pooling_layer(x, size, stride):
-    return tf.nn.max_pool(
+    return tf.compat.v1.nn.max_pool(
         value=x,
         ksize=[1, size, size, 1],
         strides=[1, stride, stride, 1],
@@ -52,7 +52,7 @@ def max_pooling_layer(x, size, stride):
 
 
 def avg_pooling_layer(x, size, stride):
-    return tf.nn.avg_pool(
+    return tf.compat.v1.nn.avg_pool(
         value=x,
         ksize=[1, size, size, 1],
         strides=[1, stride, stride, 1],
@@ -61,60 +61,60 @@ def avg_pooling_layer(x, size, stride):
 
 def full_connection_layer(x, out_dim, trainable=True):
     in_dim = x.get_shape().as_list()[-1]
-    W = tf.get_variable(
+    W = tf.compat.v1.get_variable(
         name='weight',
         shape=[in_dim, out_dim],
         dtype=tf.float32,
-        initializer=tf.truncated_normal_initializer(stddev=0.1),
+        initializer=tf.compat.v1.keras.initializers.truncated_normal(stddev=0.1),
         trainable=trainable)
-    b = tf.get_variable(
+    b = tf.compat.v1.get_variable(
         name='bias',
         shape=[out_dim],
         dtype=tf.float32,
-        initializer=tf.constant_initializer(0.0),
+        initializer=tf.compat.v1.keras.initializers.constant(0.0),
         trainable=trainable)
     return tf.add(tf.matmul(x, W), b)
 
 
 def batch_normalize(x, is_training, decay=0.99, epsilon=0.001, trainable=True):
     def bn_train():
-        batch_mean, batch_var = tf.nn.moments(x, axes=[0, 1, 2])
-        train_mean = tf.assign(
+        batch_mean, batch_var = tf.compat.v1.nn.moments(x, axes=[0, 1, 2])
+        train_mean = tf.compat.v1.assign(
             pop_mean, pop_mean * decay + batch_mean * (1 - decay))
-        train_var = tf.assign(
+        train_var = tf.compat.v1.assign(
             pop_var, pop_var * decay + batch_var * (1 - decay))
         with tf.control_dependencies([train_mean, train_var]):
-            return tf.nn.batch_normalization(
+            return tf.compat.v1.nn.batch_normalization(
                 x, batch_mean, batch_var, beta, scale, epsilon)
 
     def bn_inference():
-        return tf.nn.batch_normalization(
+        return tf.compat.v1.nn.batch_normalization(
             x, pop_mean, pop_var, beta, scale, epsilon)
 
     dim = x.get_shape().as_list()[-1]
-    beta = tf.get_variable(
+    beta = tf.compat.v1.get_variable(
         name='beta',
         shape=[dim],
         dtype=tf.float32,
-        initializer=tf.truncated_normal_initializer(stddev=0.0),
+        initializer=tf.compat.v1.initializers.truncated_normal(stddev=0.0),
         trainable=trainable)
-    scale = tf.get_variable(
+    scale = tf.compat.v1.get_variable(
         name='scale',
         shape=[dim],
         dtype=tf.float32,
-        initializer=tf.truncated_normal_initializer(stddev=0.1),
+        initializer=tf.compat.v1.initializers.truncated_normal(stddev=0.1),
         trainable=trainable)
-    pop_mean = tf.get_variable(
+    pop_mean = tf.compat.v1.get_variable(
         name='pop_mean',
         shape=[dim],
         dtype=tf.float32,
-        initializer=tf.constant_initializer(0.0),
+        initializer=tf.compat.v1.initializers.constant(0.0),
         trainable=False)
-    pop_var = tf.get_variable(
+    pop_var = tf.compat.v1.get_variable(
         name='pop_var', 
         shape=[dim],
         dtype=tf.float32,
-        initializer=tf.constant_initializer(1.0),
+        initializer=tf.compat.v1.initializers.constant(1.0),
         trainable=False)
     return tf.cond(is_training, bn_train, bn_inference)
 

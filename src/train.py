@@ -1,6 +1,8 @@
 import os
 import numpy as np
 import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 import cv2
 import matplotlib.pyplot as plt
 from tqdm import tqdm
@@ -14,7 +16,8 @@ vgg_model = '../vgg19/backup/latest'
 def train():
     x = tf.placeholder(tf.float32, [None, 96, 96, 3])
     is_training = tf.placeholder(tf.bool, [])
-
+    #x = [None, 96, 96, 3]
+    #is_training = False
     model = SRGAN(x, is_training, batch_size)
     sess = tf.Session()
     with tf.variable_scope('srgan'):
