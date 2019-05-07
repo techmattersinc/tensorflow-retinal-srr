@@ -11,13 +11,14 @@ with TensorFlow.
 
 ## Google Diabetic retinopathy dataset  training
 
+### After 5 epochs
+
 ![result1](results/train/000000001.jpg)
 
 ![result2](results/train/000000002.jpg)
 
 ![result3](results/train/000000003.jpg)
 
-![result4](results/train/000000004.jpg)
 
 
 ## Test
