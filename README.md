@@ -11,13 +11,13 @@ with TensorFlow.
 
 ## Google Diabetic retinpopathy  training
 
-![result1](src/result/000000010/000000001.jpg)
+![result1](results/train/000000001.jpg)
 
-![result2](src/result/000000010/000000002.jpg)
+![result2](results/train/000000002.jpg)
 
-![result3](src/result/000000010/000000003.jpg)
+![result3](results/train/000000003.jpg)
 
-![result4](src/result/000000010/000000004.jpg)
+![result4](results/train/000000004.jpg)
 
 
 ## Test
