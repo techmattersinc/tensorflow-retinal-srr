@@ -9,7 +9,7 @@ with TensorFlow.
 
 # Results
 
-## Google Diabetic retinpopathy  training
+## Google Diabetic retinopathy dataset  training
 
 ![result1](results/train/000000001.jpg)
 
