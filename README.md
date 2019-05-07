@@ -13,12 +13,15 @@ with TensorFlow.
 
 ### After 5 epochs
 
+`Train`
 ![result1](results/train/000000001.jpg)
 
 ![result2](results/train/000000002.jpg)
 
 ![result3](results/train/000000003.jpg)
 
+`Test`
+![result1](results/test/out20.png.jpg)
 
 
 ## Test
