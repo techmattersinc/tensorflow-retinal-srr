@@ -28,3 +28,7 @@ SRR Output images
 ![Combined](output/combined_srr.gif)
 
 Combined Imagery(Left: Original, Right:SRR) . 
+
+
+## Conclusion
+GAN is not able to hallucinate new features probably due to the extreme low resolution of the images
