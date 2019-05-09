@@ -4,27 +4,21 @@ based on
 ([Photo-Realistic Single Image Super-Resolution Using a Generative Adversarial Network](
 https://arxiv.org/abs/1609.04802))
 with TensorFlow.
+DataSet: [Google Diabetic retinopathy dataset](https://ai.googleblog.com/2016/11/deep-learning-for-detection-of-diabetic.html)
 
 
 
-# Results
+### Progression of GAN during Training 
 
-## Google Diabetic retinopathy dataset  training
+![training](output/train_animated.gif)
 
-### After 5 epochs
-
-Train
-![result1](results/train/000000001.jpg)
-
-![result2](results/train/000000002.jpg)
-
-![result3](results/train/000000003.jpg)
+Image shows progression of GAN over 74 epochs. GAN is able to pickup finer details as training progresses
 
 ---
+![test](output/test_animated.gif)
+Testing of the GAN using captured raw retinal imagery 
 
-Test
-![result1](results/test/out20.png.jpg)
-
+Tes
 ---
 
 The paper says VGG54 is the perceptually most convincing results.
