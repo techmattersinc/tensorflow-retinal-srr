@@ -10,8 +10,11 @@ class SRGAN:
     def __init__(self, x, is_training, batch_size):
         self.batch_size = batch_size
         self.vgg = VGG19(None, None, None)
-        self.downscaled = self.downscale(x)
+        #self.downscaled = self.downscale(x)
+        self.downscaled =  tf.convert_to_tensor(x, dtype=tf.float32)
+        #self.downscaled = tf.constant(x, dtype=tf.float32)
         self.imitation = self.generator(self.downscaled, is_training, False)
+        return
         self.real_output = self.discriminator(x, is_training, False)
         self.fake_output = self.discriminator(self.imitation, is_training, True)
         self.g_loss, self.d_loss = self.inference_losses(
