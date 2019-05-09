@@ -27,4 +27,4 @@ SRR Output images
 
 ![Combined](output/combined_srr.gif)
 
-Combined Imagery
+Combined Imagery(Left: Original, Right:SRR) . 
